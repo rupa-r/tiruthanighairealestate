@@ -564,27 +564,47 @@
             })
         })()
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var form = document.querySelector('.needs-validation');
-    
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-    
-                var name = document.querySelector('#validationCustom01').value;
-                var phoneNumber = document.querySelector('#validationCustom02').value;
-                var alternatePhoneNumber = document.querySelector('#validationCustom03').value;
-                var address = document.querySelector('#validationTextarea').value;
-                var date = document.querySelector('#date-input').value;
-                var time = document.querySelector('#time-input').value;
-                var landmark = document.querySelector('#validationCustom04').value;
-                var numberOfPersons = document.querySelector('#validationCustom05').value;
-    
-                window.location.href = `https://api.whatsapp.com/send?phone=918778192145&text=Name: ${name} \n Phone Number: ${phoneNumber} \n Alternate Phone Number: ${alternatePhoneNumber}
-                \n Address: ${address} \n Date: ${date} \n Time: ${time} \n Landmark: ${landmark} \n Number of Persons: ${numberOfPersons}`
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select the form element
+        var form = document.querySelector('.needs-validation');
+
+        // Add event listener for form submission
+        form.addEventListener('submit', function (event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Perform validation
+            if (form.checkValidity() === false) {
+                event.stopPropagation();
+                form.classList.add('was-validated');
+            } else {
+                // Form is valid, submit it
+                submitForm();
+            }
         });
-    </script>
+
+        // Function to submit the form
+        function submitForm() {
+            // Get form values
+            var name = document.querySelector('#validationCustom01').value;
+            var phoneNumber = document.querySelector('#validationCustom02').value;
+            var alternatePhoneNumber = document.querySelector('#validationCustom03').value;
+            var address = document.querySelector('#validationTextarea').value;
+            var date = document.querySelector('#date-input').value;
+            var time = document.querySelector('#time-input').value;
+            var landmark = document.querySelector('#validationCustom04').value;
+            var numberOfPersons = document.querySelector('#validationCustom05').value;
+
+            // Construct WhatsApp message URL
+            var whatsappURL = 'https://api.whatsapp.com/send?phone=' + phoneNumber + '&text=Name: ' + name + '%0APhone Number: ' + phoneNumber + '%0AAlternate Phone Number: ' + alternatePhoneNumber + '%0AAddress: ' + address + '%0ADate: ' + date + '%0ATime: ' + time + '%0ALandmark: ' + landmark + '%0ANumber of Persons: ' + numberOfPersons;
+
+            // Redirect user to WhatsApp with form values
+            window.location.href = whatsappURL;
+        }
+    });
+</script>
+
     
 </body>
 
